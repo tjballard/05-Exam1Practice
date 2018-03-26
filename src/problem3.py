@@ -2,8 +2,8 @@
 PRACTICE Test 1, problem 3.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and TJ Ballard.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -95,6 +95,7 @@ def run_test_problem3a():
     print('Test 4 expected:', expected)
     print('       actual:  ', answer)
 
+
     window3.close_on_mouse_click()
 
     # ------------------------------------------------------------------
@@ -145,6 +146,18 @@ def problem3a(window, point, n):
     #    DIFFICULTY:      7 or 8
     #    TIME ESTIMATE:   20 to 35 minutes.
     # ------------------------------------------------------------------
+    x = 0
+    for k in range(n):
+        start = rg.Point(point.x + 20 * k, point.y + 10 * k)
+        end = rg.Point(point.x + 20 * k, point.y + 50 + 10 * k)
+        line = rg.Line(start, end)
+        line.thickness = 1 + 2 * k
+        if line.thickness > 13:
+            line.thickness = 13
+        line.attach_to(window)
+        x = line.thickness + x
+    window.render()
+    return x
 
 
 def run_test_problem3b():
@@ -201,7 +214,7 @@ def problem3b(m, point1):
         :type point1: rg.Point
     """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # DONE: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     ####################################################################
@@ -214,6 +227,19 @@ def problem3b(m, point1):
     #    DIFFICULTY:      8 or 9
     #    TIME ESTIMATE:   20 to 30 minutes.
     # ------------------------------------------------------------------
+
+    window = rg.RoseWindow(400, 650)
+    total_sum = 0
+    for k in range(m):
+        point_y = point1.y + 60 * k
+        point_x = point1.x
+        point = rg.Point(point_x, point_y)
+        x = problem3a(window, point, 3 + 2 * k)
+        total_sum = total_sum + x
+
+    window.render()
+    window.close_on_mouse_click()
+    return total_sum
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
